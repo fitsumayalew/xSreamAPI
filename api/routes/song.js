@@ -36,6 +36,6 @@ const upload = multer({
 
 router.post("/", checkAuth,upload.single('song'), SongController.add_song);
 
-router.get("/", SongController.add_song);
+router.get("/:songId", SongController.get_song);
 
 module.exports = router;
