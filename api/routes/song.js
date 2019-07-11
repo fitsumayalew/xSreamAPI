@@ -8,7 +8,7 @@ const SongController = require('../controllers/song');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, './upload/');
   },
   filename: function (req, file, cb) {
     cb(null, new Date().getTime() + md5(file.originalname));

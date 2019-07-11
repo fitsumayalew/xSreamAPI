@@ -7,7 +7,7 @@ const AlbumController = require('../controllers/album');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './uploads/');
+    cb(null, './upload/');
   },
   filename: function (req, file, cb) {
     var time_now = new Date();

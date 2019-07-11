@@ -12,7 +12,7 @@ exports.add_song = (req, res, next) => {
         const song = new Song({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
-            songPath: req.file.path.split('\\')[1],
+            songPath: req.file.path,
             artist: req.userData.id,
             album: req.body.album,
             length: duration
@@ -29,7 +29,7 @@ exports.add_song = (req, res, next) => {
     
         cloudinary.uploader.upload(
           path,
-          { public_id: `${path}`}, // directory and tags are optional
+          { public_id: `${path.split('/')[1]}`}, // directory and tags are optional
           function(err, image) {
             if(err){
                 console.log(err);
