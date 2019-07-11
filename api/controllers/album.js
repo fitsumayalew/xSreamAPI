@@ -10,7 +10,7 @@ exports.add_album = (req, res, next) => {
     const album = new Album({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        albumImage: req.file.path.split('\\')[1],
+        albumImage: req.file.path,
         uploadDate: new Date().getTime(),
         artist: req.userData.id
     });
@@ -26,7 +26,7 @@ exports.add_album = (req, res, next) => {
 
     cloudinary.uploader.upload(
       path,
-      { public_id: `${path}`}, // directory and tags are optional
+      { public_id: `${path.split('\\')[1]}`}, // directory and tags are optional
       function(err, image) {
         if(err){
             console.log(err);

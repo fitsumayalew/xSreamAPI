@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     var time_now = new Date();
     cb(null, "aa_" + time_now.getDate() + "" + time_now.getMonth() + "-" + time_now.getFullYear() + "_" +
-      time_now.getHours() + "-" + time_now.getMinutes() + "-" + time_now.getSeconds() + "-" + md5(file.originalname) + ".");
+      time_now.getHours() + "-" + time_now.getMinutes() + "-" + time_now.getSeconds() + "-" + md5(file.originalname));
   }
 });
 
