@@ -12,12 +12,35 @@ exports.add_song = (req, res, next) => {
         const song = new Song({
             _id: new mongoose.Types.ObjectId(),
             name: req.body.name,
-            songPath: req.file.path,
+            songPath: req.file.path.split('\\')[1],
             artist: req.userData.id,
             album: req.body.album,
             length: duration
         });
-        console.log(song);
+        
+        const cloudinary = require('cloudinary').v2;
+        cloudinary.config({
+          cloud_name: 'fitsumayalew',
+          api_key: '278299316462351',
+          api_secret: 'ZZlzCXQ4Q0GzRYIRwXLV0Jso__M'
+        });
+        
+        const path = album.albumImage;
+    
+        cloudinary.uploader.upload(
+          path,
+          { public_id: `${path}`}, // directory and tags are optional
+          function(err, image) {
+            if(err){
+                console.log(err);
+            }
+            console.log('file uploaded to Cloudinary')
+            // remove file from server
+            const fs = require('fs')
+            fs.unlinkSync(path)
+            // return image details
+          }
+        )
 
         song
             .save()
@@ -28,11 +51,11 @@ exports.add_song = (req, res, next) => {
                     request: [
                         {
                             type: "GET",
-                            url: "http://localhost:3000/song/" + result._id
+                            url: "song/" + result._id
                         },
                         {
                             type: "GET",
-                            url: "http://localhost:3000/album/" + result.album
+                            url: "album/" + result.album
                         },
                     ]
 

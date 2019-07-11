@@ -10,7 +10,7 @@ exports.add_album = (req, res, next) => {
     const album = new Album({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        albumImage: req.file.path,
+        albumImage: req.file.path.split('\\')[1],
         uploadDate: new Date().getTime(),
         artist: req.userData.id
     });
@@ -28,13 +28,14 @@ exports.add_album = (req, res, next) => {
       path,
       { public_id: `${path}`}, // directory and tags are optional
       function(err, image) {
-        if (err) return res.send(err)
+        if(err){
+            console.log(err);
+        }
         console.log('file uploaded to Cloudinary')
         // remove file from server
         const fs = require('fs')
         fs.unlinkSync(path)
         // return image details
-        res.json(image)
       }
     )
 
@@ -46,7 +47,7 @@ exports.add_album = (req, res, next) => {
                 album: album,
                 request: {
                     type: "GET",
-                    url: "http://localhost:3000/album/" + result._id
+                    url: "album/" + result._id
                 }
             });
         })

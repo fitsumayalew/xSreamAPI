@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     cb(null, './uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, md5(file.originalname) + ".mp3");
+    cb(null, new Date().getTime() + md5(file.originalname));
   }
 });
 
