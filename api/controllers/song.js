@@ -25,7 +25,7 @@ exports.add_song = (req, res, next) => {
           api_secret: 'ZZlzCXQ4Q0GzRYIRwXLV0Jso__M'
         });
         
-        const path = album.songPath;
+        const path = song.songPath;
     
         cloudinary.uploader.upload(
           path,
