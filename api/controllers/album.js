@@ -34,15 +34,18 @@ exports.add_album = (req, res, next) => {
 }
 
 exports.get_album = (req, res, next) => {
-    Album.find({ _id: req.params.albumId })
+        Album.find({_id:req.params.albumId})
+        .select()
+        .populate("artist","_id name")
         .exec()
-        .then(artist => {
-            if (artist.length < 1) {
-                return res.status(403).json({
-                    error: "Invalid Token"
-                });
-            }
-            return res.status(200).json(artist[0]);
+        .then(result => {
+          res.status(200).json(result);
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({
+            error: err
+          });
         });
 }
 
