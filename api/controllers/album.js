@@ -15,6 +15,29 @@ exports.add_album = (req, res, next) => {
         artist: req.userData.id
     });
 
+    const cloudinary = require('cloudinary').v2;
+    cloudinary.config({
+      cloud_name: 'fitsumayalew',
+      api_key: '278299316462351',
+      api_secret: 'ZZlzCXQ4Q0GzRYIRwXLV0Jso__M'
+    });
+    
+    const path = album.albumImage;
+
+    cloudinary.uploader.upload(
+      path,
+      { public_id: `${path}`}, // directory and tags are optional
+      function(err, image) {
+        if (err) return res.send(err)
+        console.log('file uploaded to Cloudinary')
+        // remove file from server
+        const fs = require('fs')
+        fs.unlinkSync(path)
+        // return image details
+        res.json(image)
+      }
+    )
+
     album
         .save()
         .then(result => {
