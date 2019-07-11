@@ -11,6 +11,7 @@ exports.add_album = (req, res, next) => {
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         albumImage: req.file.path,
+        uploadDate: new Date().getTime(),
         artist: req.userData.id
     });
 

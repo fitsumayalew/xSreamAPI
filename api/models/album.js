@@ -5,6 +5,7 @@ const albumSchema = mongoose.Schema({
     name: { type: String, required: true },
     genre: { type: String, required: false },
     albumImage: { type: String, required: true },
+    uploadDate: {type: Number, required: true},
     artist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artist', required: true }
 });
 
