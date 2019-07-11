@@ -30,7 +30,7 @@ exports.add_song = (req, res, next) => {
         cloudinary.uploader.upload(
           path,
           { public_id: `${path.split('/')[1]}`,
-          resource_type: "audio"}, // directory and tags are optional
+          resource_type: "auto"}, // directory and tags are optional
           function(err, image) {
             if(err){
                 console.log(err);
