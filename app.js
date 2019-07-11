@@ -10,19 +10,14 @@ const artistRoutes = require("./api/routes/artist");
 const userRoutes = require("./api/routes/user");
 
 mongoose.connect(
-"mongodb://node-shop:" +
-process.env.MONGO_ATLAS_PW +
-"mongodb+srv://node-shop:node-shop@xstreammusicapp-jwyek.mongodb.net/test?retryWrites=true&w=majority",
-{
-useMongoClient: true
-}
+"mongodb+srv://node-shop:node-shop@xstreammusicapp-jwyek.mongodb.net/test?retryWrites=true&w=majority"
 );
 
 
-mongoose.connect("mongodb://localhost/xStream",
-  {
-    useNewUrlParser: true
-  });
+// mongoose.connect("mongodb://localhost/xStream",
+//   {
+//     useNewUrlParser: true
+//   });
 
 mongoose.Promise = global.Promise;
 

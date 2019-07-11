@@ -73,6 +73,12 @@ exports.user_login = (req, res, next) => {
         message: "Auth successful",
         token: token
       });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({
+        error: err
+      });
     });
 };
 
