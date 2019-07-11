@@ -26,7 +26,7 @@ exports.add_album = (req, res, next) => {
 
     cloudinary.uploader.upload(
       path,
-      { public_id: `${path.split('\\')[1]}`}, // directory and tags are optional
+      { public_id: `${path.split('/')[1]}`}, // directory and tags are optional
       function(err, image) {
         if(err){
             console.log(err);
