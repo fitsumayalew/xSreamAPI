@@ -62,7 +62,7 @@ exports.artist_login = (req, res, next) => {
       }
       const token = jwt.sign(
         {
-          phone: artist[0].phone,
+          phone: req.body..phone,
           id: artist[0]._id
         },
         process.env.JWT_KEY,
