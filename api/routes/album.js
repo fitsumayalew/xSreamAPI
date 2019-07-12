@@ -38,6 +38,8 @@ router.post("/", checkAuth,upload.single('albumImage'), AlbumController.add_albu
 
 router.get("/:albumId", AlbumController.get_album);
 
+router.get("/albums",checkAuth, AlbumController.get_albums);
+
 router.patch("/:albumId", checkAuth, AlbumController.update_album);
 
 
