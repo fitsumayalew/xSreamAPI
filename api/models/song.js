@@ -10,4 +10,6 @@ const songSchema = mongoose.Schema({
     album: { type: mongoose.Schema.Types.ObjectId, ref: 'Album', required: true }
 });
 
+songSchema.index({name: 'text', 'album.name': 'text'});
+
 module.exports = mongoose.model('Song', songSchema);
