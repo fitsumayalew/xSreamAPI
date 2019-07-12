@@ -48,7 +48,7 @@ exports.user_view = (req, res, next) => {
         });
       }
 
-      Song.findOneAndUpdate({ _id: req.params.songId }, req.body, { views : song[0].views - 0 + 1})
+      Song.findOneAndUpdate({ _id: req.params.songId }, { views : song[0].views - 0 + 1},{new : true} )
         .exec()
         .then(user => {
           return res.status(200).json({
