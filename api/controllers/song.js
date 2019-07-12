@@ -14,6 +14,7 @@ exports.add_song = (req, res, next) => {
       name: req.body.name,
       songPath: req.file.path,
       artist: req.userData.id,
+      views: 0,
       album: req.body.album,
       length: duration
     });
