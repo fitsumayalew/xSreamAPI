@@ -8,6 +8,8 @@ const albumRoutes = require("./api/routes/album");
 const songRoutes = require("./api/routes/song");
 const artistRoutes = require("./api/routes/artist");
 const userRoutes = require("./api/routes/user");
+const searchRoutes = require("./api/routes/search");
+const latestrRoutes = require("./api/routes/latest");
 
 mongoose.connect(
 "mongodb+srv://node-shop:node-shop@xstreammusicapp-jwyek.mongodb.net/test?retryWrites=true&w=majority"
@@ -44,6 +46,8 @@ app.use("/album", albumRoutes);
 app.use("/song", songRoutes);
 app.use("/artist", artistRoutes);
 app.use("/user", userRoutes);
+app.use("/latest", latestrRoutes);
+app.use("/search", searchRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not found");
