@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 var randomstring = require("randomstring");
 
 const User = require("../models/user");
+const Song = require("../models/song");
 
 exports.user_signup = (req, res, next) => {
   User.find({ $or: [{ phone: req.body.phone }, { username: req.body.username }] })
@@ -36,6 +37,29 @@ exports.user_signup = (req, res, next) => {
       }
     });
 };
+
+exports.user_view = (req, res, next) => {
+  Song.find({ _id: req.params.songId })
+    .exec()
+    .then(song => {
+      if (song.length < 1) {
+        return res.status(403).json({
+          error: "Invalid Song Id"
+        });
+      }
+
+      Song.findOneAndUpdate({ _id: req.params.songId }, req.body, { views : song[0].views - 0 + 1})
+        .exec()
+        .then(user => {
+          return res.status(200).json({
+            message: "Updated successfully",
+            user: user
+          });
+        });
+
+
+    });
+}
 
 exports.user_login = (req, res, next) => {
   User.find({ phone: req.body.phone })
@@ -83,8 +107,8 @@ exports.user_login = (req, res, next) => {
 };
 
 
-exports.user_profile = (req,res,next) => {
-  User.find({ _id: req.userData.id})
+exports.user_profile = (req, res, next) => {
+  User.find({ _id: req.userData.id })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -93,15 +117,15 @@ exports.user_profile = (req,res,next) => {
         });
       }
 
- 
+
 
       return res.status(200).json(user[0]);
     });
 }
 
 
-exports.user_profile_update = (req,res,next) => {
-  User.find({ _id: req.userData.id})
+exports.user_profile_update = (req, res, next) => {
+  User.find({ _id: req.userData.id })
     .exec()
     .then(user => {
       if (user.length < 1) {
@@ -110,16 +134,16 @@ exports.user_profile_update = (req,res,next) => {
         });
       }
 
-      User.findOneAndUpdate({_id: req.userData.id},req.body,{new: true})
-      .exec()
-      .then(user=>{
-        return res.status(200).json({
-          message: "Updated successfully",
-          user: user
+      User.findOneAndUpdate({ _id: req.userData.id }, req.body, { new: true })
+        .exec()
+        .then(user => {
+          return res.status(200).json({
+            message: "Updated successfully",
+            user: user
+          });
         });
-      });
 
-      
+
     });
 }
 

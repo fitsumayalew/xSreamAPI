@@ -39,6 +39,8 @@ router.get('/',UserController.get_users);
 
 router.get("/login", UserController.user_login);
 
+router.get("/view/:songId", UserController.user_view);
+
 router.get("/profile", checkAuth, UserController.user_profile);
 
 router.patch("/profile", checkAuth, UserController.user_profile_update);
