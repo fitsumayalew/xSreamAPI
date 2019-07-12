@@ -109,7 +109,7 @@ exports.get_album = (req, res, next) => {
 
 
 exports.get_albums = (req, res, next) => {
-    Album.find({ artist: req.userData })
+    Album.find({ artist: req.userData.id })
         .select()
         .populate("artist", "_id name")
         .exec()
