@@ -37,11 +37,11 @@ router.post("/signup", upload.single('avatar'), UserController.user_signup);
 
 router.get('/',UserController.get_users);
 
-router.get("/login", UserController.user_login);
+router.post("/login", UserController.user_login);
 
 router.get("/view/:songId", UserController.user_view);
 
-router.get("/profile", checkAuth, UserController.user_profile);
+router.post("/profile", checkAuth, UserController.user_profile);
 
 router.patch("/profile", checkAuth, UserController.user_profile_update);
 

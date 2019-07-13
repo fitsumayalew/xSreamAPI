@@ -36,9 +36,9 @@ const upload = multer({
 
 router.post("/", checkAuth,upload.single('albumImage'), AlbumController.add_album);
 
-router.get("/:albumId", AlbumController.get_album);
+router.post("/:albumId", AlbumController.get_album);
 
-router.get("/albums",checkAuth, AlbumController.get_albums);
+router.post("/albums",checkAuth, AlbumController.get_albums);
 
 router.patch("/:albumId", checkAuth, AlbumController.update_album);
 
