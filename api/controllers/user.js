@@ -75,14 +75,29 @@ exports.user_login = (req, res, next) => {
         });
         user
           .save()
-          .then()
+          .then(result=>{
+            const token = jwt.sign(
+              {
+                phone: user.phone,
+                id: user._id
+              },
+              process.env.JWT_KEY,
+              {
+                expiresIn: "7d"
+              }
+            );
+            return res.status(200).json({
+              message: "Auth successful",
+              token: token
+            });
+          })
           .catch(err => {
             console.log(err);
             res.status(500).json({
               error: err
             });
           });
-      }
+      }else{
       const token = jwt.sign(
         {
           phone: user[0].phone,
@@ -97,6 +112,7 @@ exports.user_login = (req, res, next) => {
         message: "Auth successful",
         token: token
       });
+    }
     })
     .catch(err => {
       console.log(err);
